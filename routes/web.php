@@ -1,24 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoriesController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/products/all', function () {
-    return view('frontend.products.all');
-});
-Route::get('/admin/index', function () {
-    return view('admin.index');
-});
-Route::get('/admin/users', function () {
-    return view('admin.users.index');
+Route::prefix('admin')->group(function(){
+    Route::prefix('categories')->group(function(){
+        Route::get('create',[CategoriesController::class,'create']);
+        Route::get('/',[CategoriesController::class,'index']);
+        Route::post('',[CategoriesController::class,'store'])->name('admin.categories.store');
+    });
 });

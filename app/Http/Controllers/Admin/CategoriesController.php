@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Bus\UpdatedBatchJobCounts;
 use App\Http\Requests\Admin\Categories\StoreResult;
+use App\Http\Requests\Admin\categories\UpdateRequest;
 
 class CategoriesController extends Controller
 {
@@ -70,8 +72,10 @@ class CategoriesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
+
     {
-        //
+        $category=Category::find($id);
+        return view('admin.categories.edit',compact('category'));
     }
 
     /**
@@ -81,9 +85,18 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+     $validatedData= $request->validated();
+        $category=Category::find($id)->update([
+            'title'=>$validatedData['title'],
+            'slug'=>$validatedData['slug'],
+
+        ]);
+        if($category){
+            return back()->with('success','دسته بندی آپدیت شد');
+       }
+       return back()->with('failed','دسته بندی آپدیت نشد');
     }
 
     /**
@@ -92,8 +105,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($category_id)
     {
-        //
+        $category=Category::find($category_id)->delete();
+        return back()->with('success','دسته بندی حذف شد');
     }
 }

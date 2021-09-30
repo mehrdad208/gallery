@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Exception;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Utilities\ImageUploader;
+use PhpParser\Node\Stmt\TryCatch;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\products\StoreRequest;
-use App\Utilities\ImageUploader;
-use Exception;
-use PhpParser\Node\Stmt\TryCatch;
+use App\Http\Requests\Admin\products\UpdateRequest;
 
 class ProductsController extends Controller
 {
@@ -23,7 +24,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('admin.products.all');
+        $products = Product::paginate(10);
+        $categories = Category::all();
+        return view('admin.products.all', compact('products', 'categories'));
     }
 
     /**
@@ -56,29 +59,10 @@ class ProductsController extends Controller
             'price' => $validatedData['price'],
             'owner_id' => $admin->id,
         ]);
-        try {
-            $basePath = 'products/' . $createdProduct->id . "/";
-            $images = [
-                'thumbnail_url' => $validatedData['thumbnail_url'],
-                'demo_url' => $validatedData['demo_url']
-            ];
-
-            $imagesPath = ImageUploader::uploadMany($images, $basePath);
-            $image = $validatedData['source_url'];
-            $sourceImageFullPath = $basePath . 'source_url' . $image->getClientOriginalName();
-            ImageUploader::upload($image, $sourceImageFullPath, 'local_storage');
-            $updatedProduct = Product::find($createdProduct->id)->update([
-                'thumbnail_url' => $imagesPath['thumbnail_url'],
-                'demo_url' => $imagesPath['demo_url'],
-                'source_url' => $sourceImageFullPath,
-            ]);
-            if (!$updatedProduct) {
-                throw new Exception('تصاویر آپلود نشدند.');
-            }
-            return back()->with('success', 'محصول ایجاد شد');
-        } catch (\Exception $e) {
-            return back()->with('failed', $e->getMessage());
+        if (!$this->uploadImages($createdProduct, $validatedData)) {
+            return back()->with('failed', 'محصول ایجاد نشد');
         }
+        return back()->with('success', 'محصول ایجاد شد');
     }
 
     /**
@@ -100,7 +84,9 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::all();
+        $product = Product::findOrFail($id);
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -110,9 +96,22 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $validatedData = $request->validated();
+        $product = Product::findOrFail($id);
+
+        $updatedProduct = Product::findOrFail($id)->update([
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'category_id' => $validatedData['category_id'],
+            'price' => $validatedData['price'],
+        ]);
+        if(!$this->uploadImages($product,$validatedData) or  $updatedProduct)
+        {
+            return back()->with('success','محصول بروزرسانی شد');
+        }
+        return back()->with('failed','محصول بروزرسانی نشد');
     }
 
     /**
@@ -123,6 +122,52 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id)->delete();
+        return back()->with('success', 'محصول حذف شد.');
+    }
+    public function downloadDemo($product_id)
+    {
+        $product = Product::findOrFail($product_id);
+        return response()->download(public_path($product->demo_url));
+    }
+    public function downloadSource($product_id)
+    {
+        $product = Product::findOrFail($product_id);
+        return response()->download(storage_path('app/local_storage/' . $product->source_url));
+    }
+    private function uploadImages($createdProduct, $validatedData)
+    {
+        try {
+            $basePath = 'products/' . $createdProduct->id . "/";
+            $sourceImageFullPath = null;
+            $data = [];
+            if (isset($validatedData['source_url'])) {
+                $sourceImageFullPath = $basePath . 'source_url' . $validatedData['source_url']->getClientOriginalName();
+                ImageUploader::upload($validatedData['source_url'], $sourceImageFullPath, 'local_storage');
+                $data += ['source_url' => $sourceImageFullPath,];
+            }
+            if (isset($validatedData['thumbnail_url'])) {
+                $fullPath = $basePath . 'thumbnail_url_' . $validatedData['thumbnail_url']->getClientOriginalName();
+                ImageUploader::upload($validatedData['thumbnail_url'], $fullPath, 'public_storage');
+                $data += ['thumbnail_url' => $fullPath];
+            }
+            if (isset($validatedData['demo_url'])) {
+
+                $fullPath = $basePath . 'demo_url_' . $validatedData['demo_url']->getClientOriginalName();
+                ImageUploader::upload($validatedData['demo_url'], $fullPath, 'public_storage');
+                $data += ['demo_url' => $fullPath];
+            }
+
+
+            $updatedProduct = Product::find($createdProduct->id)->update($data);
+
+            if (!$updatedProduct) {
+                throw new Exception('تصاویر آپلود نشدند.');
+            }
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

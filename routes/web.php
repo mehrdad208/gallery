@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\OrdersController;
+use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\CategoriesController;
 
@@ -32,5 +34,11 @@ Route::prefix('admin')->group(function () {
         Route::delete('{category_id}/delete', [UsersController::class, 'destroy'])->name('admin.users.delete');
         Route::get('{user_id}/edit', [UsersController::class, 'edit'])->name('admin.users.edit');
         Route::put('{user_id}/update', [UsersController::class, 'update'])->name('admin.users.update');
+    });
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [OrdersController::class, 'index'])->name('admin.orders.all');
+    });
+    Route::prefix('payments')->group(function () {
+        Route::get('/', [PaymentsController::class, 'index'])->name('admin.payments.all');
     });
 });

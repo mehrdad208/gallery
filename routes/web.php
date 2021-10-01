@@ -6,6 +6,25 @@ use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\Home\ProductsController as HomeProductsController;
+
+
+Route::prefix('')->group(function(){
+    Route::get('',[HomeProductsController::class,'index'])->name('home.products.all');
+    Route::get('{product_id}/show',[HomeProductsController::class,'show'])->name('home.product.show');
+   
+
+
+        
+    
+   
+});
+
+
+
+
+
 
 Route::prefix('admin')->group(function () {
     Route::prefix('categories')->group(function () {

@@ -1,6 +1,6 @@
 @extends('layouts.frontend.master')
 @section('content')
-    
+ @include('errors.message')   
     <!-- breadcrumb -->
     <div class="container">
         <div class="bread-crumb flex-w p-t-30">
@@ -85,8 +85,9 @@
 
                             <div class="flex-w flex-r-m p-b-10">
                                 <div class="flex-w flex-m respon6-next">
-                                    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                        افزودن به سبد خرید
+                                    <a href="{{route('home.basket.add',$product->id)}}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">افزودن به سبد خرید</a>
+                                    <button >
+                                        
                                     </button>
                                 </div>
                             </div>

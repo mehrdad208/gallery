@@ -81,19 +81,19 @@
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="?price=10to100" class="filter-link stext-106 trans-04">
                                         ۱۰ الی ۱۰۰ هزار تومان
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="?price=101to200" class="filter-link stext-106 trans-04">
                                         ۱۰۱ الی ۲۰۰ هزار تومان
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="?price=201to300" class="filter-link stext-106 trans-04">
                                         ۲۰۱ الی ۳۰۰ هزار تومان
                                     </a>
                                 </li>
@@ -107,31 +107,31 @@
 
                             <ul>
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="?filter=orderBy&action=default" class="filter-link stext-106 trans-04">
                                         پیش فرض
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="?filter=orderBy&action=mostPopular" class="filter-link stext-106 trans-04">
                                         محبوبیت
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                                    <a href="?filter=orderBy&action=newest" class="filter-link stext-106 trans-04 filter-link-active">
                                         جدیدترین
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="?filter=orderBy&action=lowToHigh" class="filter-link stext-106 trans-04">
                                         قیمت:‌ کم به زیاد
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="?filter=orderBy&action=highToLow" class="filter-link stext-106 trans-04">
                                         قیمت:‌زیاد به کم
                                     </a>
                                 </li>

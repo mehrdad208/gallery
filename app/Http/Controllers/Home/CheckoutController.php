@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cookie;
 class CheckoutController extends Controller
 {
     public function show(){
-        $baskets=json_decode(Cookie::get('basket'),true);
+        $baskets=!is_null(Cookie::get('basket'))?json_decode(Cookie::get('basket'),true):[];
         $productsPrice=array_sum(array_column($baskets,'price'));
         return view('frontend.products.checkout',compact('baskets','productsPrice'));
     }

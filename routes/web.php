@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Home\BasketController;
 use App\Http\Controllers\Admin\OrdersController;
+use App\Http\Controllers\Home\CheckoutController;
 use App\Http\Controllers\Admin\PaymentsController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\CategoriesController;
-use App\Http\Controllers\Home\BasketController;
-use App\Http\Controllers\Home\CheckoutController;
-use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ProductsController as HomeProductsController;
 
 
@@ -60,4 +61,12 @@ Route::prefix('admin')->group(function () {
     Route::prefix('payments')->group(function () {
         Route::get('/', [PaymentsController::class, 'index'])->name('admin.payments.all');
     });
+});
+
+
+
+Route::prefix('payment')->namespace('Payment')->group(function(){
+    Route::post('pay',[PaymentController::class,'pay'])->name('payment.pay');
+    Route::post('callback',[PaymentController::class,'callback'])->name('payment.callback');
+  
 });

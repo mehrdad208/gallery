@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    public $guarded=[];
+    public $fillable=['gateway','res_id','ref_id','status','order_id'];
 
     use HasFactory;
     

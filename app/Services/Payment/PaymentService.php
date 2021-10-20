@@ -14,6 +14,7 @@ class PaymentService
  
     public function __construct( private string $providerName,private RequestInterface $request)
     {
+        //$this->providerName=$providerName;$this->request=$request;خودش در داخل پرانتز این کار را انجام می دهد
 
     }
     public function pay()
@@ -21,6 +22,13 @@ class PaymentService
      $this->findProvider()->pay();   
 
     }
+
+    public function verify()
+    {
+     $this->findProvider()->verify();   
+
+    }
+
     private function findProvider()
     {
         $className='App\Services\Payment\Providers\\'.$this->providerName;

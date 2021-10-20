@@ -12,6 +12,7 @@
 */
 
 return [
+   
     'accepted'             => ':attribute باید پذیرفته شده باشد.',
     'title'                => 'عنوان',
     'slug'                 => 'نامک',

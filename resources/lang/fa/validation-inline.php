@@ -15,6 +15,7 @@ return [
     'accepted'             => 'این مقدار باید پذیرفته شده باشد.',
     'title'                => 'عنوان',
     'slug'                 => 'نامک',
+    
     'accepted_if'          => 'This field must be accepted when :other is :value.',
     'active_url'           => 'این مقدار یک آدرس معتبر نیست.',
     'after'                => 'این مقدار باید یک تاریخ بعد از :date باشد.',

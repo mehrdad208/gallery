@@ -24,14 +24,14 @@
                   <!-- small box -->
                   <div class="small-box bg-primary">
                       <div class="inner">
-                          <h3>150</h3>
+                          <h3>{{$ordersCount}}</h3>
 
                           <p>سفارشات جدید</p>
                       </div>
                       <div class="icon">
                           <i class="fa fa-shopping-cart"></i>
                       </div>
-                      <a href="#" class="small-box-footer">اطلاعات بیشتر</a>
+                      <a href="{{route('admin.orders.all')}}" class="small-box-footer">اطلاعات بیشتر</a>
                   </div>
               </div>
               <!-- ./col -->
@@ -39,14 +39,14 @@
                   <!-- small box -->
                   <div class="small-box bg-primary">
                       <div class="inner">
-                          <h3>53</h3>
+                          <h3>{{$categoriesCount}}</h3>
 
                           <p>دسته بندی</p>
                       </div>
                       <div class="icon">
                           <i class="fa fa-sitemap"></i>
                       </div>
-                      <a href="#" class="small-box-footer">اطلاعات بیشتر</a>
+                      <a href="{{route('admin.categories.all')}}" class="small-box-footer">اطلاعات بیشتر</a>
                   </div>
               </div>
               <!-- ./col -->
@@ -54,14 +54,14 @@
                   <!-- small box -->
                   <div class="small-box bg-primary">
                       <div class="inner">
-                          <h3>44</h3>
+                          <h3>{{$productsCount}}</h3>
 
                           <p>محصول</p>
                       </div>
                       <div class="icon">
                           <i class="fa fa-image"></i>
                       </div>
-                      <a href="#" class="small-box-footer">اطلاعات بیشتر</a>
+                      <a href="{{route('admin.products.all')}}" class="small-box-footer">اطلاعات بیشتر</a>
                   </div>
               </div>
               <!-- ./col -->
@@ -69,14 +69,14 @@
                   <!-- small box -->
                   <div class="small-box bg-primary">
                       <div class="inner">
-                          <h3>65</h3>
+                          <h3>{{$usersCount}}</h3>
 
                           <p>کاربر</p>
                       </div>
                       <div class="icon">
                           <i class="fa fa-user"></i>
                       </div>
-                      <a href="#" class="small-box-footer">اطلاعات بیشتر</a>
+                      <a href="{{route('admin.users.all')}}" class="small-box-footer">اطلاعات بیشتر</a>
                   </div>
               </div>
               <!-- ./col -->
@@ -93,7 +93,7 @@
                       <div class="card-body">
                           <div class="d-flex">
                               <p class="d-flex flex-column">
-                                  <span class="text-bold text-lg">تومان 18,230.00</span>
+                                  <span class="text-bold text-lg">تومان {{number_format($price)}}</span>
                                   <span>فروش در طول زمان</span>
                               </p>
                               <p class="mr-auto d-flex flex-column text-right">

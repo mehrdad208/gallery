@@ -40,6 +40,7 @@
                           <table class="table table-hover mb-0">
                               <tbody>
                               <tr>
+                                <th>آیدی</th>
                                   <th>کاربر</th>
                                   <th>مبلغ</th>
                                   <th>کد رهگیری</th>
@@ -52,17 +53,22 @@
                                   
                                   
                               </tr>
-                              @foreach ($orders as $order)
+                              @foreach ($orders as $key => $order)
                               <tr>
+                                <td>{{$key+1}}</td>
                                   <td>{{$order->user->name}}</td>
                                   <td>{{$order->amount}} تومان </td>
                                   <td>{{$order->ref_code}}</td>
                                   <td>
+                                    @if($order->status=="paid")
                                     <span class="badge bg-success">موفق</span>
+                                    @else
+                                    <span class="badge bg-danger">ناموفق</span>
+                                    @endif
                                   </td>
-                                  <td>{{$order->created_at}}</td>
+                                  <td>{{Verta::instance($order['created_at'])}}</td>
                                   <td>
-                                    <button  class="btn btn-default btn-icons" data-toggle="modal" data-target="#order_items" title="مشاهده سبد خرید"><i class="fa fa-shopping-cart"></i></button>
+                                   <a href="{{route('admin.orders.items.all',$order->id)}}"><i class="fa fa-shopping-cart"></i></a> 
                                   </td>
                               </tr>
                               @endforeach
@@ -85,90 +91,9 @@
   </div>
   <!-- /.content-wrapper -->
 
-<!-- Modal -->
 
-    <!-- Modal -->
-    <div class="modal fade" id="order_items" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">آیتم های سبد خرید</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body p-0">
-                    <div class="table table-striped table-valign-middle mb-0">
-                        <table class="table table-hover mb-0">
-                            <tbody>
-                            <tr>
-                                <th>عنوان</th>
-                                <th>دسته بندی</th>
-                                <th>لینک دمو</th>
-                                <th>لینک دانلود</th>
-                                <th>قیمت</th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="dist/img/user6-128x128.jpg" class="product_img">
-                                    کارت ویزیت مشاور املاک</td>
-                                <td>کارت ویزیت</td>
-                                <td>
-                                    <a href="#" class="btn btn-default btn-icons" title="لینک دمو"><i class="fa fa-link"></i></a>
-                                </td>
-                                <td>
-                                    <a href="#" class="btn btn-default btn-icons" title="لینک دانلود"><i class="fa fa-link"></i></a>
-                                </td>
-                                <td>۳۹۰۰۰ تومان</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="dist/img/user6-128x128.jpg" class="product_img">
-                                    کارت ویزیت مشاور املاک</td>
-                                <td>کارت ویزیت</td>
-                                <td>
-                                    <a href="#" class="btn btn-default btn-icons" title="لینک دمو"><i class="fa fa-link"></i></a>
-                                </td>
-                                <td>
-                                    <a href="#" class="btn btn-default btn-icons" title="لینک دانلود"><i class="fa fa-link"></i></a>
-                                </td>
-                                <td>۳۹۰۰۰ تومان</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="dist/img/user6-128x128.jpg" class="product_img">
-                                    کارت ویزیت مشاور املاک</td>
-                                <td>کارت ویزیت</td>
-                                <td>
-                                    <a href="#" class="btn btn-default btn-icons" title="لینک دمو"><i class="fa fa-link"></i></a>
-                                </td>
-                                <td>
-                                    <a href="#" class="btn btn-default btn-icons" title="لینک دانلود"><i class="fa fa-link"></i></a>
-                                </td>
-                                <td>۳۹۰۰۰ تومان</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="dist/img/user6-128x128.jpg" class="product_img">
-                                    کارت ویزیت مشاور املاک</td>
-                                <td>کارت ویزیت</td>
-                                <td>
-                                    <a href="#" class="btn btn-default btn-icons" title="لینک دمو"><i class="fa fa-link"></i></a>
-                                </td>
-                                <td>
-                                    <a href="#" class="btn btn-default btn-icons" title="لینک دانلود"><i class="fa fa-link"></i></a>
-                                </td>
-                                <td>۳۹۰۰۰ تومان</td>
-                            </tr>
-                            </tbody></table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
+   
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 

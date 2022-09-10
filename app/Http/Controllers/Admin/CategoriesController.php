@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Bus\UpdatedBatchJobCounts;
 use App\Http\Requests\Admin\Categories\StoreResult;
-use App\Http\Requests\Admin\categories\UpdateRequest;
+use App\Http\Requests\Admin\Categories\UpdateRequest;
 
 class CategoriesController extends Controller
 {
@@ -16,6 +16,7 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //show all categories in admin page
     public function index()
     {
       $categories=Category::paginate(10);
@@ -28,6 +29,7 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //show create category for admin
     public function create()
     {
         return view('admin.categories.create');
@@ -39,6 +41,7 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // store data for create category
     public function store(StoreResult $request)
     {
         $validatedData=$request->validated();
@@ -71,6 +74,7 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //show edit category for admin
     public function edit($id)
 
     {
@@ -85,12 +89,13 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //update data for one category
     public function update(UpdateRequest $request, $id)
     {
-     $validatedData= $request->validated();
+     
         $category=Category::find($id)->update([
-            'title'=>$validatedData['title'],
-            'slug'=>$validatedData['slug'],
+            'title'=>$request['title'],
+            'slug'=>$request['slug'],
 
         ]);
         if($category){
@@ -105,9 +110,18 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //delete one category 
     public function destroy($category_id)
     {
         $category=Category::find($category_id)->delete();
         return back()->with('success','دسته بندی حذف شد');
+    }
+
+    //search one category in all categories
+    public function search(Request $request){
+      $categories=Category::where('title','like','%'.$request['search'].'%')->paginate(10);
+      return view('admin.categories.all',compact('categories'));
+
+
     }
 }

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Cookie;
 class BasketController extends Controller
 {
     public  $minutes = 60;
+
+    //for add product to  basket session
     public function addToBasket($product_id)
     {
 
@@ -25,12 +27,13 @@ class BasketController extends Controller
 
                 ],
             ];
+            
             $basket=json_encode($basket);
             Cookie::queue('basket', $basket, $this->minutes);
             return back()->with('success', 'محصول به سبد خرید اضافه شد.');
         }
         if (isset($basket[$product->id])) {
-            return back()->with('success', 'محصول به سبد خرید اضافه شد.');
+            return back()->with('success', 'محصول قبلا به سبد خرید اضافه شده بود.');
         }
         $basket[$product->id] = [
             'title' => $product->title,
@@ -41,6 +44,7 @@ class BasketController extends Controller
         Cookie::queue('basket', $basket, $this->minutes);
         return back()->with('success', 'محصول به سبد خرید اضافه شد.');
     }
+    //delete product in basket session
     public function deleteToBasket($product_id)
     {
         $basket=json_decode(Cookie::get('basket'),true);

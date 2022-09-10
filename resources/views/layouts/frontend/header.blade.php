@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <title>سون گرافیک</title>
+    <title> شرکت گرافیکی ایرانیان</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -45,15 +45,15 @@
         <div class="top-bar">
             <div class="content-topbar flex-sb-m h-full container">
                 <div class="left-top-bar">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                    شرکت گرافیکی ایرانیان
                 </div>
 
                 <div class="right-top-bar flex-w h-full">
-                    <a href="#" class="flex-c-m trans-04 p-lr-25">
+                    <a href="{{route('home.product.helps')}}" class="flex-c-m trans-04 p-lr-25">
                         راهنمای خرید و قوانین
                     </a>
 
-                    <a href="#" class="flex-c-m trans-04 p-lr-25">
+                    <a href="{{route('home.product.contact_us')}}" class="flex-c-m trans-04 p-lr-25">
                         اکانت من
                     </a>
                 </div>
@@ -65,7 +65,7 @@
 
                 <!-- Logo desktop -->
                 <a href="/" class="logo">
-                    <img src="/images/icons/logo-01.png" alt="IMG-LOGO">
+                    <img src="/images/icons/images11.jpeg" alt="IMG-LOGO">
                 </a>
 
                 <!-- Menu desktop -->
@@ -75,9 +75,7 @@
                         <li class="active-menu">
                             <a href="/">صفحه اصلی</a>
                         </li>
-                        <li>
-                            <a href="/">تماس با ما</a>
-                        </li>
+                       
                     </ul>
                 </div>
 
@@ -87,7 +85,7 @@
                         <i class="zmdi zmdi-search"></i>
                     </div>
 
-                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{is_null(Cookie::get('basket')) or empty(Cookie::get('basket')) ? 0 : count(json_decode(Cookie::get('basket'),true))}}">
+                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="{{is_null(Cookie::get('basket')) || empty(Cookie::get('basket')) ? 0 : count(json_decode(Cookie::get('basket'),true))}}">
                         <i class="zmdi zmdi-shopping-cart"></i>
                     </div>
                 </div>
@@ -145,7 +143,8 @@
                 <img src="/images/icons/icon-close2.png" alt="CLOSE">
             </button>
 
-            <form class="wrap-search-header flex-w p-l-15" action="{{route('home.products.all')}}">
+            <form class="wrap-search-header flex-w p-l-15" method="post" action="{{route('home.search')}}">
+                @csrf
                 <button class="flex-c-m trans-04">
                     <i class="zmdi zmdi-search"></i>
                 </button>
@@ -201,7 +200,8 @@
 
             <div class="w-full">
                 <div class="header-cart-total w-full p-tb-40">
-                    جمع کل: {{ is_null(Cookie::get('basket')) or empty(Cookie::get('basket')) ? 0 : array_sum(array_column(json_decode(Cookie::get('basket'),true),'price'))}} هزار تومان
+                    جمع کل: {{is_null(json_decode(Cookie::get('basket'),true)) || empty(json_decode(Cookie::get('basket'),true)) ? "0" :  
+                    array_sum(array_column(json_decode(Cookie::get('basket'),true),'price'))}} هزار تومان
                 </div>
 
                 <div class="header-cart-buttons flex-w w-full">

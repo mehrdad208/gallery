@@ -36,6 +36,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        
     ];
     public function products(){
         return $this->hasMany(Product::class,'owner_id');
@@ -43,5 +44,6 @@ class User extends Authenticatable
 
     public function orders(){
         return $this->hasMany(Order::class);
+        
     }
 }

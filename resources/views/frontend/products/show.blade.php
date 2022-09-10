@@ -4,18 +4,18 @@
     <!-- breadcrumb -->
     <div class="container">
         <div class="bread-crumb flex-w p-t-30">
-            <a href="index.html" class="mtext-106 cl8 hov-cl1 trans-04">
+            <a href="{{route('home.products.all')}}" class="mtext-106 cl8 hov-cl1 trans-04">
                 خانه
                 <i class="fa fa-angle-left m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
 
-            <a href="product.html" class="mtext-106 cl8 hov-cl1 trans-04">
-                کارت ویزیت
+            <a href="" class="mtext-106 cl8 hov-cl1 trans-04">
+               {{$product->category->title}}
                 <i class="fa fa-angle-left m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
 
             <span class="mtext-106 cl4">
-				کارت ویزیت مشاور املاک
+                {{$product->title}}
 			</span>
         </div>
     </div>
@@ -34,6 +34,16 @@
                             <div class="slick3 gallery-lb">
                                 <div class="item-slick3" data-thumb="/{{$product->thumbnail_url}}">
                                     <div class="wrap-pic-w pos-relative">
+                                        <img src="/{{$product->thumbnail_url}}" alt="IMG-PRODUCT">
+
+                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$product->thumbnail_url}}">
+                                            <i class="fa fa-expand"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="item-slick3" data-thumb="/{{$product->demo_url}}">
+                                    <div class="wrap-pic-w pos-relative">
                                         <img src="/{{$product->demo_url}}" alt="IMG-PRODUCT">
 
                                         <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$product->demo_url}}">
@@ -42,25 +52,15 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
+                                <div class="item-slick3" data-thumb="/{{$product->source_url}}">
                                     <div class="wrap-pic-w pos-relative">
-                                        <img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
+                                        <img src="/{{$product->source_url}}" alt="IMG-PRODUCT">
 
-                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
+                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$product->source_url}}">
                                             <i class="fa fa-expand"></i>
                                         </a>
                                     </div>
-                                </div>
-
-                                <div class="item-slick3" data-thumb="images/product-detail-03.jpg">
-                                    <div class="wrap-pic-w pos-relative">
-                                        <img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-                                        <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
-                                            <i class="fa fa-expand"></i>
-                                        </a>
-                                    </div>
-                                </div> --}}
+                                </div> 
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                 <div class="col-md-6 col-lg-5 p-b-30">
                     <div class="p-r-50 p-t-5 p-lr-0-lg">
                         <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                        {{$product->title}}
+                       {{$product->title}} 
                         </h4>
 
                         <span class="mtext-106 cl2">

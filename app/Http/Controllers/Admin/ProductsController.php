@@ -6,12 +6,8 @@ use Exception;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Utilities\ImageUploader;
-use PhpParser\Node\Stmt\TryCatch;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\products\StoreRequest;
 use App\Http\Requests\Admin\products\UpdateRequest;
 
@@ -22,6 +18,7 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //show all products for admin
     public function index()
     {
         $products = Product::paginate(10);
@@ -34,6 +31,7 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //show add view for create product for admin
     public function create()
     {
         $categories = Category::all();
@@ -46,11 +44,15 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+     //store data for create product
     public function store(StoreRequest $request)
     {
-        $admin = User::where('email', 'admin@gmail.com')->first();
+        
+        $admin = User::where('email', 'm.ebrahimi.talo1990@gmail.com')->first();
+       
         $validatedData = $request->validated();
-
+        
 
         $createdProduct = Product::create([
             'title' => $validatedData['title'],
@@ -59,6 +61,7 @@ class ProductsController extends Controller
             'price' => $validatedData['price'],
             'owner_id' => $admin->id,
         ]);
+        
         if (!$this->uploadImages($createdProduct, $validatedData)) {
             return back()->with('failed', 'محصول ایجاد نشد');
         }
@@ -82,6 +85,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //show edit view for update product
     public function edit($id)
     {
         $categories = Category::all();
@@ -96,6 +100,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //update product with new data send admin
     public function update(UpdateRequest $request, $id)
     {
         $validatedData = $request->validated();
@@ -120,6 +125,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //delete product agency admin
     public function destroy($id)
     {
         $product = Product::findOrFail($id)->delete();
@@ -133,8 +139,10 @@ class ProductsController extends Controller
     public function downloadSource($product_id)
     {
         $product = Product::findOrFail($product_id);
+        
         return response()->download(storage_path('app/local_storage/' . $product->source_url));
     }
+    //upload image
     private function uploadImages($createdProduct, $validatedData)
     {
         try {
@@ -145,6 +153,7 @@ class ProductsController extends Controller
                 $sourceImageFullPath = $basePath . 'source_url' . $validatedData['source_url']->getClientOriginalName();
                 ImageUploader::upload($validatedData['source_url'], $sourceImageFullPath, 'local_storage');
                 $data += ['source_url' => $sourceImageFullPath,];
+                
             }
             if (isset($validatedData['thumbnail_url'])) {
                 $fullPath = $basePath . 'thumbnail_url_' . $validatedData['thumbnail_url']->getClientOriginalName();
@@ -160,8 +169,9 @@ class ProductsController extends Controller
 
 
             $updatedProduct = Product::find($createdProduct->id)->update($data);
-
+            
             if (!$updatedProduct) {
+                Product::find($createdProduct->id)->delete();
                 throw new Exception('تصاویر آپلود نشدند.');
             }
 

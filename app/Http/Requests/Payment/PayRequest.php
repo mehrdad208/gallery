@@ -29,4 +29,14 @@ class PayRequest extends FormRequest
             'email' =>'required|email',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name'=>'نام و نام خانوادگی',
+            'mobile'=>'موبایل',
+            'email'=>'ایمیل'
+        ];
+
+    }
 }

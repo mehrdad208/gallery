@@ -30,8 +30,7 @@ class StoreRequest extends FormRequest
             'thumbnail_url'=>'required|image|mimes:png,jpeg,jpg',
             'demo_url'=>'required|image|mimes:png,jpeg,jpg',
             'source_url'=>'required|image|mimes:png,jpeg,jpg',
-            'description' =>'required|min:10',
-
+            'description' =>'required|min:10'
         ];
     }
 }

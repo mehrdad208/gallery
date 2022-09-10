@@ -33,19 +33,25 @@
                                   <div class="col-md-6">
                                       <div class="form-group">
                                           <label>نام و نام خانوادگی</label>
-                                          <input type="text" class="form-control" name="name" placeholder="نام و نام خانوادگی را وارد کنید">
+                                          <input type="text" class="form-control" name="name" value="{{old('name')}}" placeholder="نام و نام خانوادگی را وارد کنید">
                                       </div>
                                   </div>
                                   <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>کد ملی</label>
+                                        <input type="text" class="form-control" name="national_code" value="{{old('national_code')}}" placeholder="کدملی را وارد کنید">
+                                    </div>
+                                </div>
+                                  <div class="col-md-6">
                                       <div class="form-group">
                                           <label>ایمیل</label>
-                                          <input type="email" class="form-control" name="email" placeholder="ایمیل را وارد کنید">
+                                          <input type="email" class="form-control" name="email" value="{{old('email')}}" placeholder="ایمیل را وارد کنید">
                                       </div>
                                   </div>
                                   <div class="col-md-6">
                                       <div class="form-group">
                                           <label>موبایل</label>
-                                          <input type="text" class="form-control" name="mobile" placeholder="موبایل را وارد کنید">
+                                          <input type="text" class="form-control" name="mobile" value="{{old('mobile')}}" placeholder="موبایل را وارد کنید">
                                       </div>
                                   </div>
                                   <div class="col-md-6">

@@ -4,7 +4,7 @@
 <!-- breadcrumb -->
     <div class="container">
         <div class="bread-crumb flex-w p-t-30">
-            <a href="index.html" class="mtext-106 cl8 hov-cl1 trans-04">
+            <a href="{{route('home.products.all')}}" class="mtext-106 cl8 hov-cl1 trans-04">
                 خانه
                 <i class="fa fa-angle-left m-l-9 m-r-10" aria-hidden="true"></i>
             </a>
@@ -80,14 +80,14 @@
                                     <div class="p-t-15">
 
                                         <div class="bor8 bg0 m-b-12">
-                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="name" placeholder="نام و نام خانوادگی">
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="name" value="{{old('name')}}" placeholder="نام و نام خانوادگی">
                                         </div>
                                         <div class="bor8 bg0 m-b-12">
-                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="mobile" placeholder="موبایل">
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="mobile" value="{{old('mobile')}}" placeholder="موبایل">
                                         </div>
 
                                         <div class="bor8 bg0 m-b-22">
-                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="email" placeholder="ایمیل">
+                                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="email" value="{{old('email')}}" placeholder="ایمیل">
                                         </div>
 
                                     </div>

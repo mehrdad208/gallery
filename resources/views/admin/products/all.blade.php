@@ -56,9 +56,9 @@
                                   <th>تاریخ ایجاد</th>
                                   <th>عملیات</th>
                               </tr>
-                              @foreach ($products as $product)
+                              @foreach ($products as $key=> $product)
                               <tr>
-                                <td>{{$product->id}}</td>
+                                <td>{{$key+1}}</td>
                                 <td>
                                     <img src="/{{$product->thumbnail_url}}" class="product_img">{{$product->title}}</td>
                                     
@@ -72,7 +72,7 @@
                                     <a href="{{route('admin.products.download.source',$product->id)}}" class="btn btn-default btn-icons" title="لینک دانلود"><i class="fa fa-link"></i></a>
                                 </td>
                                 <td>{{$product->price}}تومان</td>
-                                <td>{{$product->created_at}}</td>
+                                <td>{{Verta::instance($product['created_at'])}}</td>
                                 <td>
                                     <a href="{{route('admin.products.edit',$product->id)}}" class="btn btn-default btn-icons"><i class="fa fa-edit"></i></a>
                                     <form action="{{route('admin.product.delete',$product->id)}}" style="display:inline" method="post">

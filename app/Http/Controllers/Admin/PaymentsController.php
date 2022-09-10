@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 
 class PaymentsController extends Controller
 {
+    //show all payments for admin 
     public function index (){
         $payments=Payment::paginate(10);
+        
         return view('admin.payments.all',compact('payments'));
     }
 }

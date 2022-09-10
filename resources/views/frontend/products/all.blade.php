@@ -28,20 +28,26 @@
 					</div>
 
 					<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 m-r-8 js-show-search">
-						<i class="icon-search cl2 m-l-6 fs-15 trans-04 zmdi zmdi-search"></i>
-						<i class="icon-close-search cl2 m-l-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-						جستجو
+                        <form method="post" action="{{route('home.search')}}">
+                            <i class="icon-search cl2 m-l-6 fs-15 trans-04 zmdi zmdi-search"></i>
+                            <i class="icon-close-search cl2 m-l-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+                            جستجو
+                        </form>
+						
 					</div>
 				</div>
 				
 				<!-- Search product -->
 				<div class="dis-none panel-search w-full p-t-10 p-b-15">
 					<div class="bor8 dis-flex p-l-15">
+                        <form class="flex-w p-l-15" method="post" action="{{route('home.search')}}">
+                            @csrf
 						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 							<i class="zmdi zmdi-search"></i>
 						</button>
 
-						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="متن خود را اینجا بنویسید و enter بزنید ...">
+						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search" placeholder="متن خود را اینجا بنویسید و ...">
+                    </form>
 					</div>	
 				</div>
 
@@ -56,13 +62,13 @@
 
                             <ul>
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                                    <a href="{{route('home.popular.search.free')}}" class="filter-link stext-106 trans-04 ">
                                         رایگان
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="{{route('home.popular.search.money')}}" class="filter-link stext-106 trans-04">
                                         پولی
                                     </a>
                                 </li>
@@ -76,26 +82,26 @@
 
                             <ul>
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                                    <a href="{{route('home.popular.search.all')}}" class="filter-link stext-106 trans-04">
                                         همه
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="?price=10to100" class="filter-link stext-106 trans-04">
-                                        ۱۰ الی ۱۰۰ هزار تومان
+                                    <a href="{{route('home.popular.search.200')}}" class="filter-link stext-106 trans-04">
+                                         تا 200 هزار تومان
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="?price=101to200" class="filter-link stext-106 trans-04">
-                                        ۱۰۱ الی ۲۰۰ هزار تومان
+                                    <a href="{{route('home.popular.search.201to400')}}" class="filter-link stext-106 trans-04">
+                                        201 الی 400 هزار تومان
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="?price=201to300" class="filter-link stext-106 trans-04">
-                                        ۲۰۱ الی ۳۰۰ هزار تومان
+                                    <a href="{{route('home.popular.search.401toup')}}" class="filter-link stext-106 trans-04">
+                                        بیشتر از401 هزار تومان
                                     </a>
                                 </li>
                             </ul>
@@ -107,32 +113,21 @@
                             </div>
 
                             <ul>
-                                <li class="p-b-6">
-                                    <a href="?filter=orderBy&action=default" class="filter-link stext-106 trans-04">
-                                        پیش فرض
-                                    </a>
-                                </li>
 
                                 <li class="p-b-6">
-                                    <a href="?filter=orderBy&action=mostPopular" class="filter-link stext-106 trans-04">
-                                        محبوبیت
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="?filter=orderBy&action=newest" class="filter-link stext-106 trans-04 filter-link-active">
+                                    <a href="{{route('home.search.newest')}}" class="filter-link stext-106 trans-04 filter-link-active">
                                         جدیدترین
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="?filter=orderBy&action=lowToHigh" class="filter-link stext-106 trans-04">
+                                    <a href="{{route('home.search.lesstomore')}}" class="filter-link stext-106 trans-04">
                                         قیمت:‌ کم به زیاد
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="?filter=orderBy&action=highToLow" class="filter-link stext-106 trans-04">
+                                    <a href="{{route('home.search.moretoless')}}" class="filter-link stext-106 trans-04">
                                         قیمت:‌زیاد به کم
                                     </a>
                                 </li>
@@ -151,9 +146,6 @@
 						<div class="block2-pic hov-img0">
 							<img src="/{{$product->demo_url}}" alt="IMG-PRODUCT">
 
-							<a href="{{route('home.product.show',$product->id)}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-								مشاهده سریع
-							</a>
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
@@ -170,14 +162,6 @@
 					</div>
 				</div>
 				@endforeach
-			</div>
-
-				
-			<!-- Load more -->
-			<div class="flex-c-m flex-w w-full p-t-45" >
-				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-					مشاهده بیشتر
-				</a>
 			</div>
 		</div>
 	</div>
@@ -201,31 +185,31 @@
                                 <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
                                 <div class="slick3 gallery-lb">
-                                    <div class="item-slick3" data-thumb="images/product-detail-01.jpg">
+                                    <div class="item-slick3" data-thumb="/{{$product->thumbnail_url}}">
                                         <div class="wrap-pic-w pos-relative">
-                                            <img src="/images/product-detail-01.jpg" alt="IMG-PRODUCT">
+                                            <img src="/{{$product->thumbnail_url}}" alt="IMG-PRODUCT">
 
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
+                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$product->thumbnail_url}}">
                                                 <i class="fa fa-expand"></i>
                                             </a>
                                         </div>
                                     </div>
 
-                                    <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
+                                    <div class="item-slick3" data-thumb="/{{$product->demo_url}}">
                                         <div class="wrap-pic-w pos-relative">
-                                            <img src="/images/product-detail-02.jpg" alt="IMG-PRODUCT">
+                                            <img src="/{{$product->demo_url}}" alt="IMG-PRODUCT">
 
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
+                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$product->demo_url}}">
                                                 <i class="fa fa-expand"></i>
                                             </a>
                                         </div>
                                     </div>
 
-                                    <div class="item-slick3" data-thumb="images/product-detail-03.jpg">
+                                    <div class="item-slick3" data-thumb="/{{$product->source_url}}">
                                         <div class="wrap-pic-w pos-relative">
-                                            <img src="/images/product-detail-03.jpg" alt="IMG-PRODUCT">
+                                            <img src="/{{$product->source_url}}" alt="IMG-PRODUCT">
 
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
+                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/{{$product->source_url}}">
                                                 <i class="fa fa-expand"></i>
                                             </a>
                                         </div>
@@ -238,15 +222,15 @@
                     <div class="col-md-6 col-lg-5 p-b-30">
                         <div class="p-l-50 p-t-5 p-lr-0-lg">
                             <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                                کارت ویزیت مشاور املاک
+                                {{$product->title}}
                             </h4>
 
                             <span class="mtext-106 cl2">
-								۱۳ هزار تومان
+								{{$product->price}} هزار تومان
 							</span>
 
                             <p class="stext-102 cl3 p-t-23">
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
+                                {{$product->description}}
                             </p>
 
                             <!--  -->

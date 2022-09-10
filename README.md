@@ -62,3 +62,19 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+
+
+Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->string('email')->unique(); 
+            $table->timestamp('email_verified_at')->nullable();
+            $table->char('mobile',11)->nullable();
+            $table->enum('role',['admin','user']);
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });

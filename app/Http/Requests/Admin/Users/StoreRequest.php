@@ -27,8 +27,19 @@ class StoreRequest extends FormRequest
             'name'=>'required|min:3|max:255|string',
             'email'=>'required|email|max:255|min:3|unique:users,email',
             'mobile'=>'required|digits:11|unique:users,mobile',
-            'role'=>'required|in:admin,user,seller'
+            'role'=>'required|in:admin,user,seller',
+            'national_code'=>'required|digits:10|unique:users,national_code'
 
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'email'=>'ایمیل',
+            'name'=>'نام و نام خانوادگی',
+            'mobile'=>'موبایل',
+            'national_code'=>'کد ملی'
         ];
     }
 }

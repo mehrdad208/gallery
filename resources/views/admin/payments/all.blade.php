@@ -1,5 +1,6 @@
 @extends('layouts.admin.master')
 @section('content')
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -51,15 +52,19 @@
 
                               @foreach ($payments as $payment)
                               <tr>
-                                <td>{{$payment->created_at}}  </td>
+                                <td>{{Verta::instance($payment['created_at'])}}  </td>
                                 <td>{{$payment->order->amount}} تومان</td>
                                 <td>{{$payment->id}}</td>
                                 <td>{{$payment->order->user->name}} </td>
                                 <td>
-                                    {{$payment->getway}}}
+                                    {{$payment->gateway}}
                                 </td>
                                 <td>
-                                    <span class="badge bg-success">{{$payment->status}}</span>
+                                  @if($payment->status=="paid")
+                                    <span class="badge bg-success">پرداخت شده</span>
+                                  @else
+                                    <span class="badge bg-danger">پرداخت نشده</span>
+                                  @endif
                                 </td>
                                 <td>{{$payment->ref_id}}</td>
                             </tr>
